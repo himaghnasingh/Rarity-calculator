@@ -25,14 +25,11 @@
   <!-- QUIZ SECTION -->
   <section id="quiz-section">
     <div class="quiz-container">
-
-      <!-- PROGRESS BAR -->
       <div class="progress-wrap">
         <div class="progress-bar" id="progressBar"></div>
       </div>
       <div class="step-label" id="stepLabel">Step 1 of 7</div>
 
-      <!-- STEPS -->
       <div class="steps-wrapper" id="stepsWrapper">
 
         <!-- STEP 1: Sex -->
@@ -108,7 +105,7 @@
           </div>
         </div>
 
-        <!-- STEP 6: Country population size -->
+        <!-- STEP 6: Country -->
         <div class="step hidden" id="step-6" data-step="6">
           <div class="step-icon">🌍</div>
           <h2>Where are you from?</h2>
@@ -121,7 +118,7 @@
           <button class="next-btn" onclick="nextStep()">Continue →</button>
         </div>
 
-        <!-- STEP 7: Left-handed? -->
+        <!-- STEP 7: Handedness -->
         <div class="step hidden" id="step-7" data-step="7">
           <div class="step-icon">✍️</div>
           <h2>What is your dominant hand?</h2>
@@ -133,31 +130,32 @@
           </div>
         </div>
 
-      </div><!-- end steps-wrapper -->
-    </div><!-- end quiz-container -->
+      </div>
+    </div>
   </section>
 
   <!-- RESULT SECTION -->
   <section id="result-section" class="hidden">
     <div class="noise"></div>
     <div class="result-container">
-
-      <div class="result-header">
-        <div class="result-label">YOUR RARITY SCORE</div>
-        <div class="rarity-ring-wrap">
-          <svg class="rarity-ring" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="100" cy="100" r="85" class="ring-bg"/>
-            <circle cx="100" cy="100" r="85" class="ring-fill" id="ringFill"/>
-          </svg>
-          <div class="rarity-number" id="rarityNumber">0%</div>
-        </div>
-        <p class="rarity-tagline" id="rarityTagline"></p>
+      <div class="result-label">YOUR RARITY SCORE</div>
+      <div class="rarity-ring-wrap">
+        <svg class="rarity-ring" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#7b5cfa"/>
+              <stop offset="100%" stop-color="#c8f25a"/>
+            </linearGradient>
+          </defs>
+          <circle cx="100" cy="100" r="85" class="ring-bg"/>
+          <circle cx="100" cy="100" r="85" class="ring-fill" id="ringFill"/>
+        </svg>
+        <div class="rarity-number" id="rarityNumber">0%</div>
       </div>
-
+      <p class="rarity-tagline" id="rarityTagline"></p>
       <div class="factors-grid" id="factorsGrid"></div>
-
       <div class="result-footer">
-        <p class="result-note">* Statistics derived from WHO, NCD Risk Factor Collaboration, UNESCO, Harvard/Asian Development Bank, NAMM/Gallup, and national census data. Probabilities are multiplied assuming approximate independence.</p>
+        <p class="result-note">* Statistics derived from WHO, NCD Risk Factor Collaboration, UNESCO, Harvard/Asian Development Bank, NAMM/Gallup, and national census data. Scores are weighted averages of per-trait rarity percentiles.</p>
         <button class="cta-btn secondary" onclick="resetQuiz()">← Take it again</button>
       </div>
     </div>
