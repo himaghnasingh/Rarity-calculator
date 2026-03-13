@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>How Rare Are You?</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- LANDING HERO -->
+  <section id="hero">
+    <div class="noise"></div>
+    <div class="hero-content">
+      <div class="hero-badge">GLOBAL RARITY INDEX</div>
+      <h1>How Rare<br>Are You?</h1>
+      <p class="hero-sub">Answer a few questions. Discover your place in 8.1 billion.</p>
+      <button class="cta-btn" onclick="startQuiz()">Begin ↓</button>
+    </div>
+    <div class="scroll-hint">scroll or click</div>
+  </section>
+
+  <!-- QUIZ SECTION -->
+  <section id="quiz-section">
+    <div class="quiz-container">
+
+      <!-- PROGRESS BAR -->
+      <div class="progress-wrap">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <div class="step-label" id="stepLabel">Step 1 of 7</div>
+
+      <!-- STEPS -->
+      <div class="steps-wrapper" id="stepsWrapper">
+
+        <!-- STEP 1: Sex -->
+        <div class="step" id="step-1" data-step="1">
+          <div class="step-icon">⚥</div>
+          <h2>What is your biological sex?</h2>
+          <p class="step-desc">Used to calibrate height statistics accurately.</p>
+          <div class="option-grid cols-2">
+            <button class="option-btn" data-key="sex" data-val="male" onclick="selectOption(this)">♂ Male</button>
+            <button class="option-btn" data-key="sex" data-val="female" onclick="selectOption(this)">♀ Female</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Height -->
+        <div class="step hidden" id="step-2" data-step="2">
+          <div class="step-icon">📏</div>
+          <h2>How tall are you?</h2>
+          <p class="step-desc">Enter your height in centimetres.</p>
+          <div class="input-group">
+            <input type="number" id="heightCm" class="text-input" placeholder="e.g. 178" min="100" max="250" />
+            <span class="input-unit">cm</span>
+          </div>
+          <p class="input-hint">Not sure? <span class="convert-toggle" onclick="toggleHeightConverter()">Convert from feet/inches ↕</span></p>
+          <div class="converter hidden" id="heightConverter">
+            <div class="converter-row">
+              <input type="number" id="heightFt" class="text-input small" placeholder="ft" min="3" max="8" />
+              <span class="input-unit">ft</span>
+              <input type="number" id="heightIn" class="text-input small" placeholder="in" min="0" max="11" />
+              <span class="input-unit">in</span>
+              <button class="convert-btn" onclick="convertHeight()">→ cm</button>
+            </div>
+          </div>
+          <button class="next-btn" onclick="nextStep()">Continue →</button>
+        </div>
+
+        <!-- STEP 3: Languages -->
+        <div class="step hidden" id="step-3" data-step="3">
+          <div class="step-icon">🌐</div>
+          <h2>How many languages do you speak?</h2>
+          <p class="step-desc">Count any language you can hold a real conversation in.</p>
+          <div class="option-grid cols-2">
+            <button class="option-btn" data-key="languages" data-val="1" onclick="selectOption(this)">1 language</button>
+            <button class="option-btn" data-key="languages" data-val="2" onclick="selectOption(this)">2 languages</button>
+            <button class="option-btn" data-key="languages" data-val="3" onclick="selectOption(this)">3 languages</button>
+            <button class="option-btn" data-key="languages" data-val="4+" onclick="selectOption(this)">4 or more</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: Instruments -->
+        <div class="step hidden" id="step-4" data-step="4">
+          <div class="step-icon">🎵</div>
+          <h2>How many instruments can you play?</h2>
+          <p class="step-desc">Count instruments you can actually perform on — not just dabble with.</p>
+          <div class="option-grid cols-2">
+            <button class="option-btn" data-key="instruments" data-val="0" onclick="selectOption(this)">None</button>
+            <button class="option-btn" data-key="instruments" data-val="1" onclick="selectOption(this)">1 instrument</button>
+            <button class="option-btn" data-key="instruments" data-val="2" onclick="selectOption(this)">2 instruments</button>
+            <button class="option-btn" data-key="instruments" data-val="3+" onclick="selectOption(this)">3 or more</button>
+          </div>
+        </div>
+
+        <!-- STEP 5: Education -->
+        <div class="step hidden" id="step-5" data-step="5">
+          <div class="step-icon">🎓</div>
+          <h2>Highest level of education completed?</h2>
+          <p class="step-desc">Select the highest degree or qualification you hold.</p>
+          <div class="option-grid cols-1">
+            <button class="option-btn" data-key="education" data-val="none" onclick="selectOption(this)">No formal schooling</button>
+            <button class="option-btn" data-key="education" data-val="primary" onclick="selectOption(this)">Primary school</button>
+            <button class="option-btn" data-key="education" data-val="secondary" onclick="selectOption(this)">High school / Secondary</button>
+            <button class="option-btn" data-key="education" data-val="bachelor" onclick="selectOption(this)">Bachelor's degree</button>
+            <button class="option-btn" data-key="education" data-val="postgrad" onclick="selectOption(this)">Postgraduate (Master's / PhD)</button>
+          </div>
+        </div>
+
+        <!-- STEP 6: Country population size -->
+        <div class="step hidden" id="step-6" data-step="6">
+          <div class="step-icon">🌍</div>
+          <h2>Where are you from?</h2>
+          <p class="step-desc">Select your home country.</p>
+          <div class="select-wrap">
+            <select id="countrySelect" class="text-select">
+              <option value="">— choose your country —</option>
+            </select>
+          </div>
+          <button class="next-btn" onclick="nextStep()">Continue →</button>
+        </div>
+
+        <!-- STEP 7: Left-handed? -->
+        <div class="step hidden" id="step-7" data-step="7">
+          <div class="step-icon">✍️</div>
+          <h2>What is your dominant hand?</h2>
+          <p class="step-desc">Only ~10% of humans are left-handed.</p>
+          <div class="option-grid cols-3">
+            <button class="option-btn" data-key="handedness" data-val="right" onclick="selectOption(this)">Right</button>
+            <button class="option-btn" data-key="handedness" data-val="left" onclick="selectOption(this)">Left</button>
+            <button class="option-btn" data-key="handedness" data-val="ambidextrous" onclick="selectOption(this)">Both</button>
+          </div>
+        </div>
+
+      </div><!-- end steps-wrapper -->
+    </div><!-- end quiz-container -->
+  </section>
+
+  <!-- RESULT SECTION -->
+  <section id="result-section" class="hidden">
+    <div class="noise"></div>
+    <div class="result-container">
+
+      <div class="result-header">
+        <div class="result-label">YOUR RARITY SCORE</div>
+        <div class="rarity-ring-wrap">
+          <svg class="rarity-ring" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="85" class="ring-bg"/>
+            <circle cx="100" cy="100" r="85" class="ring-fill" id="ringFill"/>
+          </svg>
+          <div class="rarity-number" id="rarityNumber">0%</div>
+        </div>
+        <p class="rarity-tagline" id="rarityTagline"></p>
+      </div>
+
+      <div class="factors-grid" id="factorsGrid"></div>
+
+      <div class="result-footer">
+        <p class="result-note">* Statistics derived from WHO, NCD Risk Factor Collaboration, UNESCO, Harvard/Asian Development Bank, NAMM/Gallup, and national census data. Probabilities are multiplied assuming approximate independence.</p>
+        <button class="cta-btn secondary" onclick="resetQuiz()">← Take it again</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
